@@ -23,17 +23,20 @@ final class ContentManager
 			$html,
 		);
 		$title = null;
-		if (preg_match('/<h1>([^<]+)<\/h1>/', $html, $htmlTitleParser)) {
-			$title = strip_tags(trim($htmlTitleParser[1] ?? ''));
+		$pureContent = null;
+		if (preg_match('/^((?:.|\n)*)<h1>([^<]+)<\/h1>((?:.|\n)*)$/', $content, $htmlTitleParser)) {
+			$title = strip_tags(trim($htmlTitleParser[2] ?? ''));
+			$pureContent = trim($htmlTitleParser[1] ?? '') . trim($htmlTitleParser[3] ?? '');
 		}
 		$perex = null;
-		if (preg_match('/<p>([^<]+)<\/p>/', $html, $htmlPerexParser)) {
+		if (preg_match('/<p>([^<]+)<\/p>/', $content, $htmlPerexParser)) {
 			$perex = strip_tags(trim($htmlPerexParser[1] ?? ''));
 		}
 
 		return new Response(
 			$html,
 			$content,
+			$pureContent ?? $content,
 			$title,
 			$perex,
 			$items,

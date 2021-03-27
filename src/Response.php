@@ -13,6 +13,7 @@ final class Response
 	public function __construct(
 		private string $original,
 		private string $content,
+		private string $pureContent,
 		private ?string $title,
 		private ?string $perex,
 		private array $items,
@@ -38,6 +39,12 @@ final class Response
 	public function getContent(): string
 	{
 		return $this->content;
+	}
+
+
+	public function getPureContent(): string
+	{
+		return $this->pureContent;
 	}
 
 
