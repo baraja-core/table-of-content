@@ -12,7 +12,7 @@ final class ContentManager
 	public function parse(string $html): Response
 	{
 		$items = [];
-		$content = preg_replace_callback(
+		$content = (string) preg_replace_callback(
 			'/<h2>([^<]+)<\/h2>/',
 			function (array $match) use (&$items): string {
 				$id = Strings::webalize($match[1]);
