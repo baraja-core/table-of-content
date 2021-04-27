@@ -24,10 +24,9 @@ final class ContentManager
 		);
 		$title = null;
 		$pureContent = null;
-		if (preg_match('/^((?:.|\n)*)<h1>([^<]+)<\/h1>((?:.|\n){1,20})/', $content, $htmlTitleParser)) {
-			$leftContent = trim($htmlTitleParser[1] ?? '');
-			$pureContent = trim($htmlTitleParser[3] ?? '') . str_replace($htmlTitleParser[0] ?? '', '', $content);
-			$title = strip_tags(trim($htmlTitleParser[2] ?? ''));
+		if (preg_match('/<h1>([^<]+)<\/h1>/', $content, $htmlTitleParser)) {
+			$title = strip_tags(trim($htmlTitleParser[1] ?? ''));
+			$pureContent = str_replace($htmlTitleParser[0] ?? '', '', $content);
 		}
 		$perex = null;
 		if (preg_match('/<p>([^<]+)<\/p>/', $content, $htmlPerexParser)) {
