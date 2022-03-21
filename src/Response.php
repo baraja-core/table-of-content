@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Baraja\TableOfContent;
 
 
-final class Response
+final class Response implements \Stringable
 {
 	/**
 	 * @param array<string, string> $items (id => title)
@@ -18,9 +18,11 @@ final class Response
 		private ?string $perex,
 		private array $items,
 	) {
+		$title = trim($title ?? '');
+		$perex = trim($perex ?? '');
 		$this->content = trim($content);
-		$this->title = trim($title ?? '') ?: null;
-		$this->perex = trim($perex ?? '') ?: null;
+		$this->title = $title !== '' ? $title : null;
+		$this->perex = $perex !== '' ? $perex : null;
 	}
 
 
@@ -61,7 +63,7 @@ final class Response
 
 
 	/**
-	 * @return string[]
+	 * @return array<string, string>
 	 */
 	public function getItems(): array
 	{
